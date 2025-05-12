@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Pack - To-Go Box Containers for Restaurants</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 80px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .company-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e53935;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+            font-weight: 500;
+            position: relative;
+            font-size: 1.2rem;
+        }
+        
+        nav ul li:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #e53935;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li:hover:after {
+            width: 100%;
+        }
+        
+        /* Hero Video */
+        .hero-video {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            margin-top: 80px;
+        }
+        
+        .hero-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hero-overlay h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero-overlay p {
+            font-size: 1.2rem;
+            max-width: 700px;
+        }
+        
+        /* Best Sellers Section */
+        .best-sellers {
+            padding: 5rem 5%;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3.2rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: #e53935;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 220px; /* Increased height for better visibility */
+            background-color: #f3f3f3;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Changed from default to contain to zoom out */
+            display: block;
+        }
+        
+        .product-info {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+            position: relative;
+            color: white;
+        }
+        
+        .contact-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/shutterstock_1027673668.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+            z-index: -1;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            margin-right: 1rem;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .contact-icon:hover {
+            transform: scale(1.2);
+            background-color: #e53935;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-info {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #e53935;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .company-name {
+                font-size: 1.4rem;
+            }
+            
+            nav ul li {
+                margin-left: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero-overlay h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-overlay p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo"><img src="images/CP_Logo-trans.png" alt="Country Pack Logo"></div>
+            <div class="company-name">Country Pack</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#best-sellers">Best Sellers</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Video Section -->
+    <section id="home" class="hero-video">
+        <video autoplay muted loop>
+            <source src="videos/first_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay">
+            <h1>Premium To-Go Containers for Restaurants</h1>
+            <p>At Country Pack, we provide high-quality Plastic and eco-friendly packaging solutions that enhance your customers' takeout experience.</p>
+        </div>
+    </section>
+
+    <!-- Best Sellers Section -->
+    <section id="best-sellers" class="best-sellers">
+        <h2 class="section-title">Our Best Sellers</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/1compartment.jpg" alt="32oz Rectangle PP Black Container 150 set">
+                </div>
+                <div class="product-info">
+                    <h3>32oz Rectangle PP Black Container 150 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/2compartments.jpg" alt="32oz PP 2-Compartment Black Container 150 set">
+                </div>
+                <div class="product-info">
+                    <h3>32oz PP 2-Compartment Black Container 150 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/3compartments.jpg" alt="32oz PP 3-Compartment Black Container 150 set">
+                </div>
+                <div class="product-info">
+                    <h3>3-Compartment Black Container 150 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/S8.png" alt="8oz Deli Soup Container 240 set">
+                </div>
+                <div class="product-info">
+                    <h3>8oz Deli Soup Container 240 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/S12.png" alt="12oz Deli Soup Container 240 set">
+                </div>
+                <div class="product-info">
+                    <h3>12oz Deli Soup Container 240 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/S16.png" alt="16oz Deli Soup Container 240 set">
+                </div>
+                <div class="product-info">
+                    <h3>16oz Deli Soup Container 240 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 7 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/Yseries16oz.png" alt="16oz PP Round Black 38oz PP Diamond Container 150 set">
+                </div>
+                <div class="product-info">
+                    <h3>16oz PP Round Black 38oz PP Diamond Container 150 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/Yseries24oz.png" alt="24oz PP Round Black 38oz PP Diamond Container 150 set">
+                </div>
+                <div class="product-info">
+                    <h3>24oz PP Round Black 38oz PP Diamond Container 150 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 9 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/Yseries32oz.png" alt="32oz PP Round Black 38oz PP Diamond Container 150 set">
+                </div>
+                <div class="product-info">
+                    <h3>32oz PP Round Black 38oz PP Diamond Container 150 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 10 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/Yseries48oz.png" alt="48oz PP Round Black 38oz PP Diamond Container 150 set">
+                </div>
+                <div class="product-info">
+                    <h3>48oz PP Round Black 38oz PP Diamond Container 150 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 11 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/38oz PP Diamond Bowl.png" alt="38oz PP Diamond Bowl 150 set">
+                </div>
+                <div class="product-info">
+                    <h3>38oz PP Diamond Bowl 150 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 12 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/48oz PP Diamond Bowl.png" alt="48oz PP Diamond Bowl 150 set">
+                </div>
+                <div class="product-info">
+                    <h3>48oz PP Diamond Bowl 150 set</h3>
+                </div>
+            </div>
+            
+            <!-- Product 13 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/6*6hinge.png" alt="Sauce Cups">
+                </div>
+                <div class="product-info">
+                    <h3>6×6 Hinge Container.png</h3>
+                </div>
+            </div>
+            
+            <!-- Product 14 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/8*8Hinge-1comp.png" alt="8×8 Single Compartment Hinge Container">
+                </div>
+                <div class="product-info">
+                    <h3>8×8 Single Compartment Hinge Container</h3>
+                </div>
+            </div>
+            
+            <!-- Product 15 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/8*8Hinge-2comp.jpg" alt="8×8 Two Compartment Hinge Container">
+                </div>
+                <div class="product-info">
+                    <h3>8×8 Two Compartment Hinge Container</h3>
+                </div>
+            </div>
+            
+            <!-- Product 16 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/9*9Hinge-3comp.jpeg" alt="9×9 3-Compartment Hinge Container">
+                </div>
+                <div class="product-info">
+                    <h3>9×9 3-Compartment Hinge Container</h3>
+                </div>
+            </div>
+            
+            <!-- Product 17 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/noodle_box.png" alt="Square Kraft Paper Noodle Take Out Container">
+                </div>
+                <div class="product-info">
+                    <h3>Square Kraft Paper Noodle Take Out Container</h3>
+                </div>
+            </div>
+            
+            <!-- Product 18 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/alumininum_trays.jpg" alt="alumininum_trays">
+                </div>
+                <div class="product-info">
+                    <h3>Aluminium Trays - All  Size available</h3>
+                </div>
+            </div>
+            
+            <!-- Product 19 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/cutleries_white.jpg" alt="Cutleries White and Black">
+                </div>
+                <div class="product-info">
+                    <h3>Cutleries White and Black</h3>
+                </div>
+            </div>
+            
+            <!-- Product 20 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/Paper Bag_medium wih handle.jpeg" alt="Paper Bag_medium wih handle.jpeg">
+                </div>
+                <div class="product-info">
+                    <h3>Paper Bag - All Size available</h3>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-bg"></div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Get In Touch</h2>
+                <p>We're here to help you find the perfect packaging solutions for your restaurant. Reach out to our team of experts today!</p>
+                
+                <div class="contact-detail">
+                    <div class="contact-icon" onclick="alert('Call us: (773) 441-4492')">📞</div>
+                    <div>
+                        <h3>Call Us</h3>
+                        <p>(773) 441-4492</p>
+                    </div>
+                </div>
+                
+                <div class="contact-detail">
+                    <div class="contact-icon" onclick="window.location.href='mailto:countrypacks@gmail.com'">✉️</div>
+                    <div>
+                        <h3>Email Us</h3>
+                        <p>countrypacks@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-detail">
+                    <div class="contact-icon" onclick="window.open('https://maps.google.com', '_blank')">🏢</div>
+                    <div>
+                        <h3>Visit Us</h3>
+                        <p>Portland, Oregon</p>
+                    </div>
+                </div>
+                
+                <div class="contact-detail">
+                    <div class="contact-icon" onclick="alert('Our hours: Monday - Friday: 8am - 6pm, Saturday: 9am - 3pm')">⏰</div>
+                    <div>
+                        <h3>Business Hours</h3>
+                        <p>Monday - Friday: 8am - 6pm<br>Saturday: 9am - 3pm</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <div class="company-name">Country Pack</div>
+                <p>Premium To-Go Box Containers for Restaurants</p>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#best-sellers">Best Sellers</a>
+                <a href="#contact">Contact Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            
+            <div class="copyright">
+                © 2025 Country Pack. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
